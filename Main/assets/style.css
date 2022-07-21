@@ -1,0 +1,48 @@
+header {
+    text-align: center;
+    color: white;
+    background-image: linear-gradient(to right, rgb(133, 118, 190) , rgb(16, 14, 179));
+    padding: 1px;
+    font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    margin-bottom:  20px;
+}
+ .box1{
+    
+ }
+
+.box2{
+   border: 1px solid black;
+   text-align: left;
+   padding: 5px;
+}
+.search {
+    font-size: x-large;
+    font-weight: bolder;
+    
+}
+#search-btn {
+    width: 100%;
+    --bs-btn-padding-y: 0.1rem;
+    margin-bottom: 4px;
+    /* padding-bottom: 5px;
+    border-bottom: 2px solid rgb(75, 71, 71); */
+}
+#city-name {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+.boxes {
+    display: flex;
+    border: 1px solid rgb(56, 45, 219);
+    margin:12px;
+    background-color: rgb(95, 97, 207);
+    color: white;
+
+}
+#fiveday {
+    margin-top: 15px;
+    text-align: left;
+    font-weight: bolder;
+    font-size: large;
+}
