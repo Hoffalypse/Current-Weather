@@ -6,14 +6,12 @@ header {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-bottom:  20px;
 }
- .box1{
-    
- }
 
 .box2{
    border: 1px solid black;
    text-align: left;
    padding: 5px;
+   border-radius: 18px;
 }
 .search {
     font-size: x-large;
@@ -38,6 +36,7 @@ header {
     margin:12px;
     background-color: rgb(95, 97, 207);
     color: white;
+    font-size: 13px;
 
 }
 #fiveday {
@@ -46,3 +45,17 @@ header {
     font-weight: bolder;
     font-size: large;
 }
+.btn-edit {
+    background-color: silver;
+    margin-top: 8px;
+    border-radius: inherit;
+    padding: 1px;
+}
+#blank-line {
+    border-bottom: 1px solid grey;
+    margin: 10px;
+}
+#city-name {
+    font-size: 14px;
+}
+
