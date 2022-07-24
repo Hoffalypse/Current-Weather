@@ -22,8 +22,7 @@ header {
     width: 100%;
     --bs-btn-padding-y: 0.1rem;
     margin-bottom: 4px;
-    /* padding-bottom: 5px;
-    border-bottom: 2px solid rgb(75, 71, 71); */
+   
 }
 #city-name {
     font-size: 25px;
@@ -32,6 +31,7 @@ header {
 
 .boxes {
     display: flex;
+    flex-wrap: wrap;
     border: 1px solid rgb(56, 45, 219);
     margin:12px;
     background-color: rgb(95, 97, 207);
@@ -55,7 +55,19 @@ header {
     border-bottom: 1px solid grey;
     margin: 10px;
 }
-#city-name {
-    font-size: 14px;
+#city-input {
+    font-size: 22px;
+    font-weight: bolder;
 }
 
+#uv {
+    color:white ;
+    border-radius: 5px;
+    padding-left: 10px;
+    padding-right: 10px;
+    padding-bottom: 2px;
+}
+#emoji1, #emoji2, #emoji3, #emoji4, #emoji5 {
+    font-size: 40px;
+    padding: -10px;
+}

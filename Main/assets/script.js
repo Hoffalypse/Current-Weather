@@ -1,94 +1,126 @@
 let searchButton = document.getElementById("search-btn");
-let cityInput=document.getElementById("city-input");
-//populate all fields in main box using api
-
-
-
-// add color coating to UV index 
-//populate field in future box
-// get dates for main box and future boxes
-currentDay = document.getElementById("city-name");
-let date = moment().format('(MMMM Do, YYYY)');
-currentDay.append(date);
-
-dayOne = document.getElementById("day1");
-let tomorrow = moment().add(1, 'days').calendar('MMMM/Do'); 
-dayOne.append(tomorrow);
-
-dayTwo = document.getElementById("day2");
-let  dayPlusTwo= moment().add(2, 'days').calendar('MMMM/Do'); 
-dayTwo.append(dayPlusTwo);
-
-dayThree = document.getElementById("day3");
-let  dayPlusThree= moment().add(3, 'days').calendar('MMMM/Do'); 
-dayThree.append(dayPlusThree);
-
-dayFour = document.getElementById("day4");
-let  dayPlusFour= moment().add(4, 'days').calendar('MMMM/Do'); 
-dayFour.append(dayPlusFour);
-
-dayFive = document.getElementById("day5");
-let  dayPlusFive= moment().add(5, 'days').calendar('MMMM/Do'); 
-dayFive.append(dayPlusFive);
+let cityInput = document.getElementById("city-input");
+let listGroup = document.querySelector(".list-group"); //parent
+let currentTemp = document.getElementById("temp");
+let currentWind = document.getElementById("wind");
+let currentHumidity = document.getElementById("humidity");
+let currentUv = document.getElementById("uv");
+let today = document.getElementById("city-input");
+let currentDay = document.getElementById("city-name");
+let date = moment().format("(MMMM Do, YYYY)");
+var listOfCity = document.querySelector("#listOfCity");
+let day = ["day1", "day2", "day3", "day4", "day5"];
+let hum = ["hum1", "hum2", "hum3", "hum4", "hum5"];
+let wind = ["wind1", "wind2", "wind3", "wind4", "wind5"];
+let dates = ["date1", "date2", "date3", "date4", "date5"];
+let emojis = ["emoji1","emoji2","emoji3","emoji4","emoji5"]
+// let emojis = document.getElementById("emoji");
 
 // use search button to render searched city button
-
 searchButton.addEventListener("click", addCity);
 
-function addCity() {
-    
-    let searchCity = document.getElementById("search-city").value; //input line 
-    
-    if (searchCity !== "") {
-        let city = document.createElement("button"); //created drop button
-        let listGroup = document.querySelector(".list-group"); //parent
-        city.type = "submit";
-        city.setAttribute("class", "list-group-item list-group-item-action btn-edit");
-        city.setAttribute("value", "text");
-        city.setAttribute("id", "city-button");
-        city.innerText = searchCity;
-        listGroup.append(city);
-        getApi();
-        
-        city.addEventListener("click",listItem)
-        function listItem  () {
-            city=searchCity;
-        }
-        return(searchCity);
-    }
 
-function getApi() {
-    
-    let requestUrl = 'http://api.openweathermap.org/geo/1.0/direct?q=' + searchCity + ',us&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9';
-  
-    fetch(requestUrl)
-      .then(function (response) {
-        return response.json();
-      })
-      .then(function (data) {
-        
-        for (let i = 0; i < data.length; i++) {
-             lat = data[i].lat;
-             lon = data[i].lon;
-             console.log(lon);
-             console.log(lat);
-        }
-        
-        let requestUrl2 = 'https://api.openweathermap.org/data/2.5/onecall?lat=' + lat + '&lon=' + lon + '&units=imperial&exclude=minutely,hourly,alerts&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9'
-        fetch(requestUrl2)
-        .then(function (response) {
-        return response.json();
-         })
-         .then(function (data2) {
-            console.log(data2);
-            for (let x = 0; x < data2.length; x++) {
-           
-            currentTemp = data2[x].current.temp;
-            console.log(currentTemp);
-            
-             }})
-        });
-      
+function addCity() {
+  let searchCity = document.getElementById("search-city").value; //input line
+
+  if (searchCity !== "") {
+    let city = document.createElement("button"); //created drop button
+    city.setAttribute("id", "city-button");
+    city.type = "submit";
+    city.setAttribute(
+      "class",
+      "list-group-item list-group-item-action btn-edit"
+    );
+    city.setAttribute("value", "text");
+    city.innerText = searchCity;
+    listGroup.append(city);
+    today.innerHTML = searchCity + date;
+    getApi(searchCity);
   }
 }
-  
+
+//turn city into geo location data 
+function getApi(searchCity) {
+  let requestUrl =
+    "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + ",us&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      for (let i = 0; i < data.length; i++) {
+        lat = data[i].lat;
+        lon = data[i].lon;
+        weatherData(lat, lon);
+      }
+    });
+}
+
+//populate weather fields of particular city
+function weatherData(lat, lon) {
+  let requestUrl2 =
+    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+  fetch(requestUrl2)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data2) {
+    //   emojis.textContent = weatherEmoji();
+      currentTemp.textContent = data2.current.temp + "°F";
+      currentHumidity.textContent = data2.current.humidity + "%";
+      currentWind.textContent = data2.current.wind_speed + "MPH";
+      currentUv.textContent = data2.current.uvi;
+      test = data2.current.uvi;
+      // add color coating to UV index
+      if (test <= 2) {
+        currentUv.style.backgroundColor = "green";
+      } else if (test > 2 && test < 5) {
+        currentUv.style.backgroundColor = "yellow";
+      } else {
+        currentUv.style.backgroundColor = "red";
+      }
+       console.log(data2);
+      for (let i = 0; i < 5; i++) {
+        futureTemp = data2.daily[i].temp.max;
+        futureHumidity = data2.daily[i].humidity;
+        futureWind = data2.daily[i].wind_speed;
+        futureEmoji = data2.daily[i].weather[0].main;
+        document.getElementById(dates[i]).textContent = moment().add(i + 1, "days").calendar("MMMM/Do");
+        document.getElementById(emojis[i]).textContent = weatherEmoji(futureEmoji);
+        document.getElementById(day[i]).textContent = "Temp: " + futureTemp + "°F";
+        document.getElementById(hum[i]).textContent ="Humidity: " + futureHumidity + "%";
+        document.getElementById(wind[i]).textContent ="Wind: " + futureWind + "MPH";
+        
+      }
+      function weatherEmoji(rep) {
+        if (rep === "Clear") {
+            let emoji = "🌞";  
+        }
+        else if (rep === "Clouds") {
+            emoji = "☁️"
+        }
+        else if (rep === "Thunderstorm"){
+            emoji = "⛈️"
+        }
+        else if (rep === "Drizzle") {
+            emoji = "🌦️"
+        }
+        else if (rep === "Rain") {
+            emoji = "🌧️"
+        }
+        else if (rep === "snow") {
+            emoji = "❄️"
+        }
+        return(emoji);
+    }
+    });
+}
+
+
+listOfCity.addEventListener("click", cityHistory);
+function cityHistory(event) {
+  let searchCity = document.getElementById("search-city").value;
+  document.getElementById("search-city").value = event.target.innerHTML;
+  console.log(event.target.value);
+}
