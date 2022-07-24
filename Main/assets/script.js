@@ -14,32 +14,33 @@ let hum = ["hum1", "hum2", "hum3", "hum4", "hum5"];
 let wind = ["wind1", "wind2", "wind3", "wind4", "wind5"];
 let dates = ["date1", "date2", "date3", "date4", "date5"];
 let emojis = ["emoji1","emoji2","emoji3","emoji4","emoji5"]
-// let emojis = document.getElementById("emoji");
+let cityArray = [];
 
-// use search button to render searched city button
-searchButton.addEventListener("click", addCity);
-
-
+// function loadSaved() {
+//  returnSearch = JSON.parselocalStorage.getItem("city", (cityArray));
+// console.log(cityArray)
+// }
+// loadSaved()
 function addCity() {
   let searchCity = document.getElementById("search-city").value; //input line
 
   if (searchCity !== "") {
-    let city = document.createElement("button"); //created drop button
-    city.setAttribute("id", "city-button");
-    city.type = "submit";
-    city.setAttribute(
-      "class",
-      "list-group-item list-group-item-action btn-edit"
-    );
-    city.setAttribute("value", "text");
-    city.innerText = searchCity;
-    listGroup.append(city);
-    today.innerHTML = searchCity + date;
+        let city = document.createElement("button"); //created drop button
+        city.setAttribute("id", "city-button");
+        city.type = "submit";
+        city.setAttribute( "class", "list-group-item list-group-item-action btn-edit");
+        city.setAttribute("value", searchCity);
+        city.innerText = searchCity;
+        cityArray.push(searchCity)
+        localStorage.setItem("city", JSON.stringify(cityArray));
+        listGroup.append(city);
+
     getApi(searchCity);
+    
   }
 }
 
-//turn city into geo location data 
+//turn city name into geo location data 
 function getApi(searchCity) {
   let requestUrl =
     "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + ",us&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
@@ -52,13 +53,13 @@ function getApi(searchCity) {
       for (let i = 0; i < data.length; i++) {
         lat = data[i].lat;
         lon = data[i].lon;
-        weatherData(lat, lon);
+        weatherData(lat, lon, searchCity);
       }
     });
 }
 
 //populate weather fields of particular city
-function weatherData(lat, lon) {
+function weatherData(lat, lon, searchCity) {
   let requestUrl2 =
     "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
   fetch(requestUrl2)
@@ -66,7 +67,8 @@ function weatherData(lat, lon) {
       return response.json();
     })
     .then(function (data2) {
-    //   emojis.textContent = weatherEmoji();
+      currentEmoji = data2.current.weather[0].main;
+      today.innerHTML = searchCity + date + weatherEmoji(currentEmoji);
       currentTemp.textContent = data2.current.temp + "°F";
       currentHumidity.textContent = data2.current.humidity + "%";
       currentWind.textContent = data2.current.wind_speed + "MPH";
@@ -80,7 +82,7 @@ function weatherData(lat, lon) {
       } else {
         currentUv.style.backgroundColor = "red";
       }
-       console.log(data2);
+       
       for (let i = 0; i < 5; i++) {
         futureTemp = data2.daily[i].temp.max;
         futureHumidity = data2.daily[i].humidity;
@@ -95,7 +97,7 @@ function weatherData(lat, lon) {
       }
       function weatherEmoji(rep) {
         if (rep === "Clear") {
-            let emoji = "🌞";  
+             emoji = "🌞";  
         }
         else if (rep === "Clouds") {
             emoji = "☁️"
@@ -117,10 +119,12 @@ function weatherData(lat, lon) {
     });
 }
 
+// use search button to render searched city button
+searchButton.addEventListener("click", addCity);
 
+//makes drop down buttons repopulate the information for that city 
 listOfCity.addEventListener("click", cityHistory);
 function cityHistory(event) {
-  let searchCity = document.getElementById("search-city").value;
-  document.getElementById("search-city").value = event.target.innerHTML;
-  console.log(event.target.value);
+  let searchCity = event.target.value;
+  getApi(searchCity);
 }
