@@ -18,35 +18,40 @@ let cityArray = [];
 
 function loadSaved() {
  returnSearch = JSON.parse(localStorage.getItem("city" ));
-console.log(returnSearch)
-for (let o = 0; o < returnSearch.length; o++) {
-        getApi(returnSearch[o]);
+if (returnSearch != null) {
+      for (let o = 0; o < returnSearch.length; o++) {
+      addCity(returnSearch[o]);
+   }
+
 }
 }
 loadSaved()
+
 function addCity(returnSearch) {
   let searchCity = document.getElementById("search-city").value; //input line
+    
+    if (searchCity==="") {
 
-  if (searchCity !== "") {
-        let city = document.createElement("button"); //created drop button
-        city.setAttribute("id", "city-button");
-        city.type = "submit";
-        city.setAttribute( "class", "list-group-item list-group-item-action btn-edit");
-        city.setAttribute("value", searchCity);
-        city.innerText = searchCity;
-        cityArray.push(searchCity)
-        localStorage.setItem("city", JSON.stringify(cityArray));
-        listGroup.append(city);
+     searchCity=returnSearch;
+    }   
+      let city = document.createElement("button"); //created drop button
+      city.setAttribute("id", "city-button");
+      city.type = "submit";
+      city.setAttribute( "class", "list-group-item list-group-item-action btn-edit");
+      city.setAttribute("value", searchCity);
+      city.innerText = searchCity;
+      cityArray.push(searchCity)
+      localStorage.setItem("city", JSON.stringify(cityArray));
+      listGroup.append(city);
 
-    getApi(searchCity);
+    getApi(searchCity); 
     
   }
-}
 
 //turn city name into geo location data 
 function getApi(searchCity) {
-  let requestUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+  
+  let requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
 
   fetch(requestUrl)
     .then(function (response) {
@@ -57,6 +62,7 @@ function getApi(searchCity) {
         lat = data[i].lat;
         lon = data[i].lon;
         weatherData(lat, lon, searchCity);
+
       }
     });
 }
@@ -85,7 +91,7 @@ function weatherData(lat, lon, searchCity) {
       } else {
         currentUv.style.backgroundColor = "red";
       }
-       
+      console.log(data2);
       for (let i = 0; i < 5; i++) {
         futureTemp = data2.daily[i].temp.max;
         futureHumidity = data2.daily[i].humidity;
@@ -120,7 +126,9 @@ function weatherData(lat, lon, searchCity) {
         return(emoji);
     }
     });
+    
 }
+
 
 // use search button to render searched city button
 searchButton.addEventListener("click", addCity);
