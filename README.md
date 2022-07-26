@@ -10,24 +10,17 @@ This is a weather app that shows you weather conditions anywhere in the world!!
 
 
 ## Description
-Upon opening the screen the user is shown the current date and time. Below they are given a series of boxes for which they can enter text to effectively schedule their work day. The interface color codes the times of day to show what has been done, what should currently be worked on and what needs to be done in future hours. White being in the past, red for the current time and green for future activities. 
-See below: 
-
-<p align ="center">
-<img src="./images/screenshot.png" alt ="scheduler">
-</p>
-
-The save button shown to the right of each line (🔒) allows the scheduler to save that individual line entry for later use. The saved entries will be repopulated when the page loads.  
+Upon opening the page you will see a seach bar. User will enter the city of which they want to see the weather. The current weather will be given and a five day forecast. Current weather will show temerature in degrees fahrenheit, humidity percentage, wind speed and UV index. The UV index is color coded. Green for safe, yellow for moderate and red for potentially dangerous (5 and above).
 
 
 ## Technologies
 The technologies used and what percetages each was used is listed below.
 
-<img src = "./images/tech.PNG" alt = "languages used">
+<img src = "./main/images/tech.PNG" alt = "languages used">
 
 
 ## Link to Deployed Website 
-Schedule your day here!
+Get up to the minute weather here!
 https://hoffalypse.github.io/Schedule-Maker/
 
 
