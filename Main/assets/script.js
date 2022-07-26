@@ -73,7 +73,7 @@ function weatherData(lat, lon, searchCity) {
       } else {
         currentUv.style.backgroundColor = "red";
       }
-      
+      //upates forecast boxes 
       for (let i = 0; i < 5; i++) {
         futureTemp = data2.daily[i].temp.max;
         futureHumidity = data2.daily[i].humidity;
@@ -86,6 +86,7 @@ function weatherData(lat, lon, searchCity) {
         document.getElementById(wind[i]).textContent ="Wind: " + futureWind + "MPH";
         
       }
+      //creates emojis dependant on API return 
       function weatherEmoji(rep) {
         if (rep === "Clear") {
              emoji = "🌞";  
