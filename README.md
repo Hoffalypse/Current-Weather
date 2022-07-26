@@ -31,7 +31,7 @@ The technologies used and what percetages each was used is listed below.
 
 <img src = "./Main/images/tech.png" alt = "languages used">
 
-Weather data was recieved from openweathermap.org Weather API
+Weather data was recieved from https://openweathermap.org Weather API
 
 
 ## Link to Deployed Website 
