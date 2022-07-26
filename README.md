@@ -13,7 +13,7 @@ This is a weather app that shows you weather conditions anywhere in the world!!
 Upon opening the page you will see a search bar. User will enter the city of which they want to see the weather. The current weather will be given and a five day forecast. Current weather will show temerature in degrees fahrenheit, humidity percentage, wind speed and UV index. The UV index is color coded. Green for safe, yellow for moderate and red for potentially dangerous (5 and above).
 
 <p align ="center">
-<img src = "./Main/images/buttons.png" alt = "created buttons">
+<img src = "./Main/images/weather.png" alt = "created buttons">
 </p>
 
 The input instructions are listed above the search bar. Major cities around the world can be searched just using the city name. For smaller cities, to search within the United States use 'city name (,) two letter state (,) US' must be used. For non-US locations city (,) country code must be used. If user is unsure of a country code a link to all country codes is provided on the page. 
@@ -23,6 +23,8 @@ When a city is searched a button is dynamically created that appears under the s
 <p align ="center">
 <img src = "./Main/images/buttons.png" alt = "created buttons">
 </p>
+
+All information is saved into local storage within the browser and will be repopulated upon refresh or coming back to the page. 
 
 ## Technologies
 The technologies used and what percetages each was used is listed below.
