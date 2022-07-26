@@ -20,38 +20,19 @@ function loadSaved() {
  returnSearch = JSON.parse(localStorage.getItem("city" ));
 if (returnSearch != null) {
       for (let o = 0; o < returnSearch.length; o++) {
-      addCity(returnSearch[o]);
+      getApi(returnSearch[o]);
    }
 
 }
 }
-loadSaved()
-
-function addCity(returnSearch) {
+function getValue() {
   let searchCity = document.getElementById("search-city").value; //input line
-    
-    if (searchCity==="") {
-
-     searchCity=returnSearch;
-    }   
-      let city = document.createElement("button"); //created drop button
-      city.setAttribute("id", "city-button");
-      city.type = "submit";
-      city.setAttribute( "class", "list-group-item list-group-item-action btn-edit");
-      city.setAttribute("value", searchCity);
-      city.innerText = searchCity;
-      cityArray.push(searchCity)
-      localStorage.setItem("city", JSON.stringify(cityArray));
-      listGroup.append(city);
-
-    getApi(searchCity); 
-    
-  }
-
+  getApi(searchCity);
+} 
 //turn city name into geo location data 
-function getApi(searchCity) {
+function getApi(returnSearch) {
   
-  let requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+  let requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + returnSearch + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
 
   fetch(requestUrl)
     .then(function (response) {
@@ -61,7 +42,7 @@ function getApi(searchCity) {
       for (let i = 0; i < data.length; i++) {
         lat = data[i].lat;
         lon = data[i].lon;
-        weatherData(lat, lon, searchCity);
+        weatherData(lat, lon, returnSearch);
 
       }
     });
@@ -69,9 +50,9 @@ function getApi(searchCity) {
 
 //populate weather fields of particular city
 function weatherData(lat, lon, searchCity) {
-  let requestUrl2 =
-    "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+  let requestUrl2 ="https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&units=imperial&exclude=minutely,hourly,alerts&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
   fetch(requestUrl2)
+    
     .then(function (response) {
       return response.json();
     })
@@ -83,6 +64,7 @@ function weatherData(lat, lon, searchCity) {
       currentWind.textContent = data2.current.wind_speed + "MPH";
       currentUv.textContent = data2.current.uvi;
       test = data2.current.uvi;
+     
       // add color coating to UV index
       if (test <= 2) {
         currentUv.style.backgroundColor = "green";
@@ -91,7 +73,7 @@ function weatherData(lat, lon, searchCity) {
       } else {
         currentUv.style.backgroundColor = "red";
       }
-      console.log(data2);
+      
       for (let i = 0; i < 5; i++) {
         futureTemp = data2.daily[i].temp.max;
         futureHumidity = data2.daily[i].humidity;
@@ -125,17 +107,41 @@ function weatherData(lat, lon, searchCity) {
         }
         return(emoji);
     }
-    });
+    // console.log(data2)
+    if (data2 == null) {
+      console.log("error")
+    }
+    else {
+    addCity(searchCity);
+    }
+  });
     
 }
-
+function addCity(searchCity) {
+  if (searchCity === cityArray[0]|| searchCity === cityArray[1] || searchCity === cityArray[2]  || searchCity === cityArray[3] || searchCity === cityArray[4] || searchCity === cityArray[5]|| searchCity === cityArray[6] || searchCity === cityArray[7]){
+    console.log('hi')
+  }
+  else{
+  let city = document.createElement("button"); //created drop button
+  city.setAttribute("id", "city-button");
+  city.type = "submit";
+  city.setAttribute( "class", "list-group-item list-group-item-action btn-edit");
+  city.setAttribute("value", searchCity);
+  city.innerText = searchCity;
+  cityArray.push(searchCity)
+  localStorage.setItem("city", JSON.stringify(cityArray));
+  listGroup.append(city);
+  }
+}
 
 // use search button to render searched city button
-searchButton.addEventListener("click", addCity);
+searchButton.addEventListener("click", getValue);
 
 //makes drop down buttons repopulate the information for that city 
 listOfCity.addEventListener("click", cityHistory);
 function cityHistory(event) {
-  let searchCity = event.target.value;
-  getApi(searchCity);
+  let buttonReturn = event.target.value;
+  getApi(buttonReturn);
 }
+
+loadSaved();

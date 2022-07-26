@@ -8,12 +8,15 @@ header {
 }
 .syntax {
     font-size: 12px;
-    background-color: rgb(170, 170, 197);
+    background-color: rgb(133, 118, 190);
     color: white;
     border-radius: 10px;
 }
 
-
+#city-button {
+    background-color:rgb(98, 65, 231) ;
+    color: white;
+}
 .box2{
    border: 1px solid black;
    text-align: left;
