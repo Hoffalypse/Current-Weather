@@ -6,12 +6,21 @@ header {
     font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     margin-bottom:  20px;
 }
+.syntax {
+    font-size: 12px;
+    background-color: rgb(170, 170, 197);
+    color: white;
+    border-radius: 10px;
+}
+
 
 .box2{
    border: 1px solid black;
    text-align: left;
    padding: 5px;
    border-radius: 18px;
+   background-image: linear-gradient(to right, rgb(133, 118, 190) , rgb(16, 14, 179));
+   box-shadow: 10px 5px 5px rgb(165, 162, 162);
 }
 .search {
     font-size: x-large;
@@ -32,15 +41,17 @@ header {
 .boxes {
     display: flex;
     flex-wrap: wrap;
-    border: 1px solid rgb(56, 45, 219);
-    margin:12px;
-    background-color: rgb(95, 97, 207);
+    border: 1px solid rgb(8, 8, 8);
+    margin:10px;
+    background-color: rgb(133, 118, 190);
     color: white;
     font-size: 13px;
+    border-radius: 10px;
+    box-shadow: 10px 5px 5px rgb(165, 162, 162);
 
 }
 #fiveday {
-    margin-top: 15px;
+    margin-top: 10px;
     text-align: left;
     font-weight: bolder;
     font-size: large;

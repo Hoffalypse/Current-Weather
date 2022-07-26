@@ -16,12 +16,15 @@ let dates = ["date1", "date2", "date3", "date4", "date5"];
 let emojis = ["emoji1","emoji2","emoji3","emoji4","emoji5"]
 let cityArray = [];
 
-// function loadSaved() {
-//  returnSearch = JSON.parselocalStorage.getItem("city", (cityArray));
-// console.log(cityArray)
-// }
-// loadSaved()
-function addCity() {
+function loadSaved() {
+ returnSearch = JSON.parse(localStorage.getItem("city" ));
+console.log(returnSearch)
+for (let o = 0; o < returnSearch.length; o++) {
+        getApi(returnSearch[o]);
+}
+}
+loadSaved()
+function addCity(returnSearch) {
   let searchCity = document.getElementById("search-city").value; //input line
 
   if (searchCity !== "") {
@@ -43,7 +46,7 @@ function addCity() {
 //turn city name into geo location data 
 function getApi(searchCity) {
   let requestUrl =
-    "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + ",us&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+    "http://api.openweathermap.org/geo/1.0/direct?q=" + searchCity + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
 
   fetch(requestUrl)
     .then(function (response) {
