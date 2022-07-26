@@ -16,7 +16,7 @@ Upon opening the page you will see a seach bar. User will enter the city of whic
 ## Technologies
 The technologies used and what percetages each was used is listed below.
 
-<img src = "./main/images/tech.PNG" alt = "languages used">
+<img src = "./images/tech.PNG" alt = "languages used">
 
 
 ## Link to Deployed Website 

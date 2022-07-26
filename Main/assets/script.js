@@ -32,7 +32,7 @@ function getValue() {
 //turn city name into geo location data 
 function getApi(returnSearch) {
   
-  let requestUrl = "http://api.openweathermap.org/geo/1.0/direct?q=" + returnSearch + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
+  let requestUrl = "https://api.openweathermap.org/geo/1.0/direct?q=" + returnSearch + "&limit=1&appid=d66f0bb9a7a8a8e06249ebf3d284dfb9";
 
   fetch(requestUrl)
     .then(function (response) {
@@ -106,15 +106,9 @@ function weatherData(lat, lon, searchCity) {
             emoji = "❄️"
         }
         return(emoji);
-    }
-    // console.log(data2)
-    if (data2 == null) {
-      console.log("error")
-    }
-    else {
+    } 
     addCity(searchCity);
-    }
-  });
+    });
     
 }
 function addCity(searchCity) {
@@ -143,5 +137,4 @@ function cityHistory(event) {
   let buttonReturn = event.target.value;
   getApi(buttonReturn);
 }
-
 loadSaved();
