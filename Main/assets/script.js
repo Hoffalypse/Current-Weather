@@ -113,8 +113,8 @@ function weatherData(lat, lon, searchCity) {
     
 }
 function addCity(searchCity) {
-  if (searchCity === cityArray[0]|| searchCity === cityArray[1] || searchCity === cityArray[2]  || searchCity === cityArray[3] || searchCity === cityArray[4] || searchCity === cityArray[5]|| searchCity === cityArray[6] || searchCity === cityArray[7]){
-    console.log('hi')
+  if (searchCity === cityArray[0]|| searchCity === cityArray[1] || searchCity === cityArray[2]  || searchCity === cityArray[3] || searchCity === cityArray[4] || searchCity === cityArray[5]|| searchCity === cityArray[6] || searchCity === cityArray[7] || searchCity === cityArray[8]){
+    console.log('hello world')
   }
   else{
   let city = document.createElement("button"); //created drop button
