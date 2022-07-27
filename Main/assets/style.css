@@ -19,6 +19,7 @@ header {
 }
 .box2{
    border: 1px solid black;
+   margin-right: 5%;
    text-align: left;
    padding: 5px;
    border-radius: 18px;
@@ -84,4 +85,14 @@ header {
 #emoji1, #emoji2, #emoji3, #emoji4, #emoji5 {
     font-size: 70px;
     padding: -10px;
+}
+
+@media screen and (max-width:990px ){
+   
+    #emoji1, #emoji2, #emoji3, #emoji4, #emoji5 {
+        font-size:30px;
+    }
+    .boxes{
+        margin:0;
+    }
 }

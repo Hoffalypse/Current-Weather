@@ -27,6 +27,10 @@ if (returnSearch != null) {
 }
 function getValue() {
   let searchCity = document.getElementById("search-city").value; //input line
+  if (!searchCity) {
+    alert("Please enter a valid location")
+    return;
+  }
   getApi(searchCity);
 } 
 //turn city name into geo location data 
@@ -126,6 +130,7 @@ function addCity(searchCity) {
   cityArray.push(searchCity)
   localStorage.setItem("city", JSON.stringify(cityArray));
   listGroup.append(city);
+  searchCity.innerText = "";
   }
 }
 
